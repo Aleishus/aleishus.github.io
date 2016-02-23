@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="keyword"  content="天才，黑客，docker ，大数据，boot，李娇的男朋友">
-    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>JavaScript Module Loader - 周曦的博客 | Aelishus Blog</title>
+    <title>Example Post with Code Highlight - 周曦的博客 | Aelishus Blog</title>
 
     <link rel="canonical" href="http://aleishus.github.io/2015/05/25/js-module-loader/">
 
@@ -66,6 +66,11 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
         <div id="huxblog_navbar">
             <div class="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -75,10 +80,6 @@
                     
                     <li>
                         <a href="/about/">About</a>
-                    </li>
-                    
-                    <li>
-                        <a href="/portfolio/">Portfolio</a>
                     </li>
                     
                     <li>
@@ -101,8 +102,10 @@
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
 
-    var __HuxNav__ = {
-        close: function(){
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
             $navbar.className = " ";
             // wait until animation end.
             setTimeout(function(){
@@ -111,38 +114,12 @@
                     $collapse.style.height = "0px"
                 }
             },400)
-        },
-        open: function(){
+        }else{
+        // OPEN
             $collapse.style.height = "auto"
             $navbar.className += " in";
         }
     }
-
-    // Bind Event
-    $toggle.addEventListener('click', function(e){
-        if ($navbar.className.indexOf('in') > 0) {
-            __HuxNav__.close()
-        }else{
-            __HuxNav__.open()
-        }
-    })
-
-    /**
-     * Since Fastclick is used to delegate 'touchstart' globally
-     * to hack 300ms delay in iOS by performing a fake 'click',
-     * Using 'e.stopPropagation' to stop 'touchstart' event from 
-     * $toggle/$collapse will break global delegation.
-     * 
-     * Instead, we use a 'e.target' filter to prevent handler
-     * added to document close HuxNav.  
-     *
-     * Also, we use 'click' instead of 'touchstart' as compromise
-     */
-    document.addEventListener('click', function(e){
-        if(e.target == $toggle) return;
-        if(e.target.className == 'icon-bar') return;
-        __HuxNav__.close();
-    })
 </script>
 
 
@@ -168,7 +145,7 @@
                         <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
                         
                     </div>
-                    <h1>JavaScript Module Loader</h1>
+                    <h1>Example Post with Code Highlight</h1>
                     
                     
                     <h2 class="subheading">CommonJS，RequireJS，SeaJS 归纳笔记</h2>
@@ -231,7 +208,7 @@
 
 var a = require('./a')  // 加载模块（同步加载）
 a.doSomething()         // 等上一句执行完才会执行
-  
+
 exports.b = function(){ // 暴露 b 函数接口
   // do something
 }
@@ -297,7 +274,7 @@ function Programmer (){
 Programmer.prototype = new Employee();
 
 //如果 require call 是异步的，那么肯定 error
-//因为在执行这句前 Employee 模块肯定来不及加载进来 
+//因为在执行这句前 Employee 模块肯定来不及加载进来
 </code></pre>
 <blockquote>
   <p>As the comment indicates above, if require() is async, this code will not work. However, loading scripts synchronously in the browser kills performance. So, what to do?</p>
@@ -310,11 +287,11 @@ Programmer.prototype = new Employee();
 define(
     [types/Employee],    //依赖
     function(Employee){  //这个回调会在所有依赖都被加载后才执行
-    
+
         function Programmer(){
             //do something
         };
-    
+
         Programmer.prototype = new Employee();
         return Programmer;  //return Constructor
     }
@@ -370,7 +347,7 @@ define(
 
 <pre><code>define(["a", "b", "c"],function(a, b, c){
     // 提前申明了并初始化了所有模块
-    
+
     true || b.foo(); //即便根本没用到模块 b，但 b 还是提前执行了。
 })
 </code></pre>
@@ -423,12 +400,12 @@ if(status){
     var a = require('./a');
     // 调用模块 a 的方法
     a.doSomething();
-  
+
     // 对外提供 foo 属性
     exports.foo = 'bar';
     // 对外提供 doSomething 方法
     exports.doSomething = function() {};
-  
+
 });
 </code></pre>
 
@@ -437,7 +414,7 @@ if(status){
 <pre><code>define('hello', ['jquery'], function(require, exports, module) {
 
     // 模块代码...
-  
+
     // 直接通过 return 暴露接口
     return {
         foo: 'bar',
@@ -466,10 +443,10 @@ if(status){
 <pre><code>// AMD 默认推荐
 
 define(['./a', './b'], function(a, b) {  // 依赖前置，提前执行
-  
+
     a.doSomething()
     b.doSomething()
-  
+
 })
 
 </code></pre>
@@ -477,12 +454,12 @@ define(['./a', './b'], function(a, b) {  // 依赖前置，提前执行
 <pre><code>// CMD
 
 define(function(require, exports, module) {
-  
+
     var a = require('./a')
     a.doSomething()
-  
+
     var b = require('./b') // 依赖就近，延迟执行
-    b.doSomething() 
+    b.doSomething()
 })
 </code></pre>
 
@@ -493,7 +470,6 @@ define(function(require, exports, module) {
 </blockquote>
 
 
-
                 <hr>
 
                 
@@ -502,7 +478,7 @@ define(function(require, exports, module) {
                 <div class="ds-share"
                     style="text-align: right"
                     data-thread-key="/2015/05/25/js-module-loader"
-                    data-title="JavaScript Module Loader"
+                    data-title="Example Post with Code Highlight"
                     data-url="http://aleishus.github.io/2015/05/25/js-module-loader/"
                     data-images="http://aleishus.github.io/img/post-bg-js-module.jpg"
                     data-content="Foreword
@@ -531,18 +507,12 @@ define(function(require, exports, module) {
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/05/11/see-u-ali/" data-toggle="tooltip" data-placement="top" title="See you, Alibaba ">
-                        Previous<br>
-                        <span>See you, Alibaba </span>
-                        </a>
+                        <a href="/2015/04/14/unix-linux-note/" data-toggle="tooltip" data-placement="top" title="Example Post">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2015/06/15/alitrip-strategy/" data-toggle="tooltip" data-placement="top" title="聊聊「阿里旅行 · 去啊」—— 行业与战略 ">
-                        Next<br>
-                        <span>聊聊「阿里旅行 · 去啊」—— 行业与战略 </span>
-                        </a>
+                        <a href="/2015/07/09/js-module-7day/" data-toggle="tooltip" data-placement="top" title="Example Post using Keynote Layout">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -553,7 +523,7 @@ define(function(require, exports, module) {
                 <div class="comment">
                     <div class="ds-thread"
                         data-thread-key="/2015/05/25/js-module-loader"
-                        data-title="JavaScript Module Loader"
+                        data-title="Example Post with Code Highlight"
                         data-url="http://aleishus.github.io/2015/05/25/js-module-loader/" >
                     </div>
                 </div>
@@ -578,99 +548,23 @@ define(function(require, exports, module) {
                     <div class="tags">
         				
                             
-                				<a href="/tags/#知乎" title="知乎" rel="7">
-                                    知乎
-                                </a>
+        				
+                            
+        				
                             
         				
                             
         				
                             
-                				<a href="/tags/#Android" title="Android" rel="2">
-                                    Android
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#交互设计" title="交互设计" rel="4">
-                                    交互设计
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#阿里巴巴" title="阿里巴巴" rel="3">
-                                    阿里巴巴
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#前端开发" title="前端开发" rel="7">
+                				<a href="/tags/#前端开发" title="前端开发" rel="3">
                                     前端开发
                                 </a>
                             
         				
                             
-                				<a href="/tags/#职业病" title="职业病" rel="3">
-                                    职业病
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#生活" title="生活" rel="2">
-                                    生活
-                                </a>
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-                				<a href="/tags/#hUX 随想录" title="hUX 随想录" rel="2">
-                                    hUX 随想录
-                                </a>
-                            
-        				
-                            
-        				
-                            
-                				<a href="/tags/#UX Design" title="UX Design" rel="3">
-                                    UX Design
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#OS" title="OS" rel="2">
-                                    OS
-                                </a>
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-                				<a href="/tags/#JavaScript" title="JavaScript" rel="4">
+                				<a href="/tags/#JavaScript" title="JavaScript" rel="3">
                                     JavaScript
                                 </a>
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
                             
         				
                             
@@ -685,19 +579,15 @@ define(function(require, exports, module) {
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
-                        <li><a href="http://lingyu.wang/">天镶的博客</a></li>
+                        <li><a href="http://huangxuan.me">Hux Blog</a></li>
                     
-                        <li><a href="http://hmqk1995.github.io">Luke的自留地</a></li>
+                        <li><a href="#">Foo</a></li>
                     
-                        <li><a href="http://ebnbin.com/">Ebn's Blog</a></li>
+                        <li><a href="#">Bar</a></li>
                     
-                        <li><a href="http://blog.smdcn.net">SmdCn's Blog</a></li>
+                        <li><a href="#">Example Friends</a></li>
                     
-                        <li><a href="http://xieminis.me/">解旻的博客</a></li>
-                    
-                        <li><a href="http://dhong.co">DHong Say</a></li>
-                    
-                        <li><a href="http://ingf.github.io/">尹峰以为</a></li>
+                        <li><a href="#">It helps SEO</a></li>
                     
                 </ul>
                 
@@ -710,7 +600,7 @@ define(function(require, exports, module) {
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
     // dynamic User by Hux
-    var _user = 'huxblog';
+    var _user = 'zhouxi';
 
     // duoshuo comment query.
     var duoshuoQuery = {short_name: _user };
@@ -779,7 +669,7 @@ define(function(require, exports, module) {
                     <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
                     
                     <li>
-                        <a target="_blank" href="https://www.zhihu.com/people/aleishus">
+                        <a target="_blank" href="https://www.zhihu.com/people/huxpro">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa  fa-stack-1x fa-inverse">知</i>
@@ -789,7 +679,7 @@ define(function(require, exports, module) {
                     
                     
                     <li>
-                        <a target="_blank" href="http://weibo.com/aleishus">
+                        <a target="_blank" href="http://weibo.com/huxpro">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
@@ -800,9 +690,18 @@ define(function(require, exports, module) {
 
 
                     
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/huxpro">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
                     
                     <li>
-                        <a target="_blank" href="https://github.com/aleishus">
+                        <a target="_blank" href="https://github.com/huxpro">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -814,7 +713,7 @@ define(function(require, exports, module) {
                 <p class="copyright text-muted">
                     Copyright &copy; 周曦的博客 2016
                     <br>
-                    Theme © <a href="http://huangxuan.me">Hux</a> |
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
                     <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
                         frameborder="0" scrolling="0" width="91px" height="20px"
@@ -869,11 +768,8 @@ define(function(require, exports, module) {
 <!--fastClick.js -->
 <script>
     async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-        // var $nav = document.querySelector("nav");
-        // if($nav) FastClick.attach($nav);
-
-        // global FastClick!!
-        FastClick.attach(document.body);    
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
     })
 </script>
 

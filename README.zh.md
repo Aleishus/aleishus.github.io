@@ -1,14 +1,10 @@
 # Hux blog 模板
 
-### [我的博客在这里 &rarr;](http://huxpro.github.io)
+### [我的博客在这里](http://huxpro.github.io)
 
-### [在这里预览模板 &rarr;](http://huangxuan.me/huxblog-boilerplate/)
+### [模板在这里](http://huangxuan.me/huxblog-boilerplate/)
 
 我的博客仓库——`huxpro.github.io`，是经常修改的，而且还会有人乱提交代码，因此给大家做了一个稳定版的模板。大家可以直接fork模板——`huxblog-boilerplate`,要改的地方我都说明了。或者可以直接下载zip到本地自己去修改。
-
-```
-$ git clone git@github.com:Huxpro/huxblog-boilerplate.git
-```
 
 ## 各版本特性
 
@@ -24,7 +20,7 @@ $ git clone git@github.com:Huxpro/huxblog-boilerplate.git
 
 ## 支持
 
-* 你可以自由的fork。如果你能主题作者和 github 的地址保留在你的页面底部，我将非常感谢你。
+* 你可以自由的fork。如果你能将我的信息和github的地址放在你的页面底部做成链接，我将非常感谢你。
 * 如果你喜欢我的这个博客模板，请在`huxpro.github.io`这个repository点个赞——右上角**star**一下。
 
 ## 说明文档
@@ -33,12 +29,12 @@ $ git clone git@github.com:Huxpro/huxblog-boilerplate.git
 	* [环境要求](#environment)
 	* [开始](#get-started)
 	* [写一篇博文](#write-posts)
-* 组件
+* 各组成部分
 	* [侧边栏](#sidebar)
-	* [迷你关于我](#mini-about-me)
-	* [推荐标签](#featured-tags)
+	* [mini-about-me](#mini-about-me)
+	* [标签云](#featured-tags)
 	* [好友链接](#friends)
-	* [HTML5 演示文档布局](#keynote-layout)
+	* [HTML5演示文档布局](#keynote-layout)
 * 评论与 Google/Baidu Analytics
 	* [评论](#comment)
 	* [网站分析](#analytics) 
@@ -116,7 +112,7 @@ Mini-About-Me 这个模块将在你的头像下面，展示你所有的社交账
 
 #### Featured Tags
 
-看到这个网站 [Medium](http://medium.com) 的推荐标签非常的炫酷，所以我将他加了进来。
+看到这个网站 [Medium](http://medium.com) 的标签云非常的炫酷，所有我在将他加了进来。
 这个模块现在是独立的，可以呈现在所有页面，包括主页和发表的每一篇文章标题的头上。
 
 ```
@@ -125,7 +121,7 @@ featured-tags: true
 featured-condition-size: 1     # A tag will be featured if the size of it is more than this condition value
 ```
 
-唯一需要注意的是`featured-condition-size`: 如果一个标签的 SIZE，也就是使用该标签的文章数大于上面设定的条件值，这个标签就会在首页上被推荐。
+唯一需要注意的是`featured-condition-size`: A tag will be featured if the size of it is more than this condition value. （也不知道Hux是想表达什么意思，请作者解答）
  
 内部有一个条件模板 `{% if tag[1].size > {{site.featured-condition-size}} %}` 是用来做筛选过滤的.
 
@@ -214,8 +210,8 @@ There are a number of tasks it performs like minification of the JavaScript, com
 
 #### Header Image
 
-标题底图是可以自己选的，看看几篇示例post你就知道如何设置了。在
-  [issue #6 ](https://github.com/Huxpro/huxpro.github.io/issues/6) 中我被问到：如果才能让头图好看？
+标题底图是可以自己选的，看看几篇示例post你就知道如何设置了，详情请见：
+  [issue #6 ](https://github.com/Huxpro/huxpro.github.io/issues/6) asked, **how to make it looks great?**
   
 标题底图的选取完全是看个人的审美了，我也帮不了你。每一篇文章可以有不同的底图，你想放什么就放什么，最后宽度要够，大小不要太大，否则加载慢啊。
 
@@ -229,7 +225,7 @@ There are a number of tasks it performs like minification of the JavaScript, com
 
 ## 致谢
 
-1. 这个模板是从这里[IronSummitMedia/startbootstrap-clean-blog-jekyll](https://github.com/IronSummitMedia/startbootstrap-clean-blog-jekyll)  fork 的。 感谢这个作者
+1. 这个模板是从这里[IronSummitMedia/startbootstrap-clean-blog-jekyll](https://github.com/IronSummitMedia/startbootstrap-clean-blog-jekyll)  forked 的。 感谢这个作者
 2. 感谢[@BrucZhaoR](https://github.com/BruceZhaoR)的中文翻译 
 
 3. 感谢 Jekyll、Github Pages 和 Bootstrap!

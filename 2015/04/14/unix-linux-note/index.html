@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="keyword"  content="天才，黑客，docker ，大数据，boot，李娇的男朋友">
-    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>Unix/Linux 扫盲笔记 - 周曦的博客 | Aelishus Blog</title>
+    <title>Example Post - 周曦的博客 | Aelishus Blog</title>
 
     <link rel="canonical" href="http://aleishus.github.io/2015/04/14/unix-linux-note/">
 
@@ -66,6 +66,11 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
         <div id="huxblog_navbar">
             <div class="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -75,10 +80,6 @@
                     
                     <li>
                         <a href="/about/">About</a>
-                    </li>
-                    
-                    <li>
-                        <a href="/portfolio/">Portfolio</a>
                     </li>
                     
                     <li>
@@ -101,8 +102,10 @@
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
 
-    var __HuxNav__ = {
-        close: function(){
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
             $navbar.className = " ";
             // wait until animation end.
             setTimeout(function(){
@@ -111,38 +114,12 @@
                     $collapse.style.height = "0px"
                 }
             },400)
-        },
-        open: function(){
+        }else{
+        // OPEN
             $collapse.style.height = "auto"
             $navbar.className += " in";
         }
     }
-
-    // Bind Event
-    $toggle.addEventListener('click', function(e){
-        if ($navbar.className.indexOf('in') > 0) {
-            __HuxNav__.close()
-        }else{
-            __HuxNav__.open()
-        }
-    })
-
-    /**
-     * Since Fastclick is used to delegate 'touchstart' globally
-     * to hack 300ms delay in iOS by performing a fake 'click',
-     * Using 'e.stopPropagation' to stop 'touchstart' event from 
-     * $toggle/$collapse will break global delegation.
-     * 
-     * Instead, we use a 'e.target' filter to prevent handler
-     * added to document close HuxNav.  
-     *
-     * Also, we use 'click' instead of 'touchstart' as compromise
-     */
-    document.addEventListener('click', function(e){
-        if(e.target == $toggle) return;
-        if(e.target.className == 'icon-bar') return;
-        __HuxNav__.close();
-    })
 </script>
 
 
@@ -170,7 +147,7 @@
                         <a class="tag" href="/tags/#Linux" title="Linux">Linux</a>
                         
                     </div>
-                    <h1>Unix/Linux 扫盲笔记</h1>
+                    <h1>Example Post</h1>
                     
                     
                     <h2 class="subheading">不适合人类阅读，非常水的自我笔记</h2>
@@ -244,7 +221,7 @@
 <ul>
   <li>
     <h4 id="bell-labs">Bell Labs</h4>
-    <p>Bell 和 AT&amp;A 在那时已经是一家了，可以看到那时的通信公司真是一线 IT 公司呢。 <br />
+    <p>Bell 和 AT&amp;A 在那时已经是一家了，可以看到那时的通信公司真是一线 IT 公司呢。
 <strong>C 语言也是 Bell Labs 的产物</strong>，从一开始就是为了用于 Unix 而设计出来的。所以 Unix （在 73 年用 C 重写）在高校流行后，C 语言也获得了广泛支持。</p>
   </li>
 </ul>
@@ -270,12 +247,12 @@
   </li>
   <li>
     <h4 id="nextstep">NeXTSTEP</h4>
-    <p>An <strong>object-oriented</strong>, multitasking OS. Low-level C but High-level OC language and runtime the first time, combined with an <strong>OO aplication layer</strong> and including several “kits”.    <br />
+    <p>An <strong>object-oriented</strong>, multitasking OS. Low-level C but High-level OC language and runtime the first time, combined with an <strong>OO aplication layer</strong> and including several “kits”.  <br />
 大家都知道 NeXT 是 Steve Jobs 被 forced out of Apple 后和 a few of his coworkers 创办的，所以 <strong>NeXTSTEP 绝对是证明 Jobs 实力的作品。</strong></p>
   </li>
   <li>
     <h4 id="darwin">Darwin</h4>
-    <p><a href="http://en.wikipedia.org/wiki/Darwin_(operating_system\)">Darwin</a>, the core set of components upon which Mac OS X and iOS based, mostly POSIX compatible, but has never, by itself, been certified as being compatible with any version of <strong>POSIX</strong>. (OS X, since Leopard, has been certified as compatible with the Single UNIX Specification version 3)  <br />
+    <p><a href="http://en.wikipedia.org/wiki/Darwin_(operating_system\)">Darwin</a>, the core set of components upon which Mac OS X and iOS based, mostly POSIX compatible, but has never, by itself, been certified as being compatible with any version of <strong>POSIX</strong>. (OS X, since Leopard, has been certified as compatible with the Single UNIX Specification version 3)<br />
 <strong>所以说 Mac OS X 算是很正统 Unix 的了</strong></p>
   </li>
   <li>
@@ -322,7 +299,7 @@
   <p>A Unix-like (sometimes referred to as UN*X or *nix) operating system is one that behaves in a manner similar to a Unix system, while not necessarily conforming to or being certified to any version of the <strong>Single UNIX Specification</strong>.</p>
 </blockquote>
 
-<p>There is no standard for defining the term.  <br />
+<p>There is no standard for defining the term.<br />
 其实 Unix-like 是个相对模糊的概念：</p>
 
 <ul>
@@ -398,13 +375,13 @@
   <li><a href="http://en.wikipedia.org/wiki/Apache_License">Apache License</a></li>
 </ul>
 
-<p><img src="/img/in-post/open-source-license.png" alt="Public License" /></p>
+<p><img src="http://dl2.iteye.com/upload/attachment/0047/4142/d770c85a-49b7-3c7f-8ae2-cbb6451e00d8.png" alt="Public License" /></p>
 
 <h4 id="android">Android</h4>
 
 <p>Android is a mobile OS based on <strong>Linux Kernel</strong>, so it’s definitely <strong>Unix-like</strong>.</p>
 
-<p><strong>Linux is under GPL so Android has to be open source</strong>. <br />
+<p><strong>Linux is under GPL so Android has to be open source</strong>.
 Android’s source code is released by Google under open source licenses, although most Android devices ultimately ship with a combination of open source and proprietary software, including proprietary software developed and licensed by Google <em>(GMS are all proprietary)</em></p>
 
 <h4 id="android-kernel">Android Kernel</h4>
@@ -469,7 +446,6 @@ Android’s source code is released by Google under open source licenses, althou
 <p>For Detail, Chromium OS based on <a href="http://en.wikipedia.org/wiki/Gentoo_Linux">Gentoo Linux</a>, emm…</p>
 
 
-
                 <hr>
 
                 
@@ -478,7 +454,7 @@ Android’s source code is released by Google under open source licenses, althou
                 <div class="ds-share"
                     style="text-align: right"
                     data-thread-key="/2015/04/14/unix-linux-note"
-                    data-title="Unix/Linux 扫盲笔记"
+                    data-title="Example Post"
                     data-url="http://aleishus.github.io/2015/04/14/unix-linux-note/"
                     data-images="http://aleishus.github.io/img/post-bg-unix-linux.jpg"
                     data-content="
@@ -508,18 +484,12 @@ Catagory
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/03/31/e2e_user_scenarios/" data-toggle="tooltip" data-placement="top" title="Definition of End to End User Scenarios">
-                        Previous<br>
-                        <span>Definition of End to End User Scenarios</span>
-                        </a>
+                        <a href="/2015/01/29/hello-2015/" data-toggle="tooltip" data-placement="top" title="Welcome to Hux Blog">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2015/04/15/os-metro/" data-toggle="tooltip" data-placement="top" title="hUX 随想录（二）：操作系统的浪漫主义 —— Metro 篇">
-                        Next<br>
-                        <span>hUX 随想录（二）：操作系统的浪漫主义 —— Metro 篇</span>
-                        </a>
+                        <a href="/2015/05/25/js-module-loader/" data-toggle="tooltip" data-placement="top" title="Example Post with Code Highlight">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -530,7 +500,7 @@ Catagory
                 <div class="comment">
                     <div class="ds-thread"
                         data-thread-key="/2015/04/14/unix-linux-note"
-                        data-title="Unix/Linux 扫盲笔记"
+                        data-title="Example Post"
                         data-url="http://aleishus.github.io/2015/04/14/unix-linux-note/" >
                     </div>
                 </div>
@@ -555,99 +525,23 @@ Catagory
                     <div class="tags">
         				
                             
-                				<a href="/tags/#知乎" title="知乎" rel="7">
-                                    知乎
-                                </a>
+        				
+                            
+        				
                             
         				
                             
         				
                             
-                				<a href="/tags/#Android" title="Android" rel="2">
-                                    Android
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#交互设计" title="交互设计" rel="4">
-                                    交互设计
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#阿里巴巴" title="阿里巴巴" rel="3">
-                                    阿里巴巴
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#前端开发" title="前端开发" rel="7">
+                				<a href="/tags/#前端开发" title="前端开发" rel="3">
                                     前端开发
                                 </a>
                             
         				
                             
-                				<a href="/tags/#职业病" title="职业病" rel="3">
-                                    职业病
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#生活" title="生活" rel="2">
-                                    生活
-                                </a>
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-                				<a href="/tags/#hUX 随想录" title="hUX 随想录" rel="2">
-                                    hUX 随想录
-                                </a>
-                            
-        				
-                            
-        				
-                            
-                				<a href="/tags/#UX Design" title="UX Design" rel="3">
-                                    UX Design
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#OS" title="OS" rel="2">
-                                    OS
-                                </a>
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-                				<a href="/tags/#JavaScript" title="JavaScript" rel="4">
+                				<a href="/tags/#JavaScript" title="JavaScript" rel="3">
                                     JavaScript
                                 </a>
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
                             
         				
                             
@@ -662,19 +556,15 @@ Catagory
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
-                        <li><a href="http://lingyu.wang/">天镶的博客</a></li>
+                        <li><a href="http://huangxuan.me">Hux Blog</a></li>
                     
-                        <li><a href="http://hmqk1995.github.io">Luke的自留地</a></li>
+                        <li><a href="#">Foo</a></li>
                     
-                        <li><a href="http://ebnbin.com/">Ebn's Blog</a></li>
+                        <li><a href="#">Bar</a></li>
                     
-                        <li><a href="http://blog.smdcn.net">SmdCn's Blog</a></li>
+                        <li><a href="#">Example Friends</a></li>
                     
-                        <li><a href="http://xieminis.me/">解旻的博客</a></li>
-                    
-                        <li><a href="http://dhong.co">DHong Say</a></li>
-                    
-                        <li><a href="http://ingf.github.io/">尹峰以为</a></li>
+                        <li><a href="#">It helps SEO</a></li>
                     
                 </ul>
                 
@@ -687,7 +577,7 @@ Catagory
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
     // dynamic User by Hux
-    var _user = 'huxblog';
+    var _user = 'zhouxi';
 
     // duoshuo comment query.
     var duoshuoQuery = {short_name: _user };
@@ -756,7 +646,7 @@ Catagory
                     <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
                     
                     <li>
-                        <a target="_blank" href="https://www.zhihu.com/people/aleishus">
+                        <a target="_blank" href="https://www.zhihu.com/people/huxpro">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa  fa-stack-1x fa-inverse">知</i>
@@ -766,7 +656,7 @@ Catagory
                     
                     
                     <li>
-                        <a target="_blank" href="http://weibo.com/aleishus">
+                        <a target="_blank" href="http://weibo.com/huxpro">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
@@ -777,9 +667,18 @@ Catagory
 
 
                     
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/huxpro">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
                     
                     <li>
-                        <a target="_blank" href="https://github.com/aleishus">
+                        <a target="_blank" href="https://github.com/huxpro">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -791,7 +690,7 @@ Catagory
                 <p class="copyright text-muted">
                     Copyright &copy; 周曦的博客 2016
                     <br>
-                    Theme © <a href="http://huangxuan.me">Hux</a> |
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
                     <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
                         frameborder="0" scrolling="0" width="91px" height="20px"
@@ -846,11 +745,8 @@ Catagory
 <!--fastClick.js -->
 <script>
     async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-        // var $nav = document.querySelector("nav");
-        // if($nav) FastClick.attach($nav);
-
-        // global FastClick!!
-        FastClick.attach(document.body);    
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
     })
 </script>
 
