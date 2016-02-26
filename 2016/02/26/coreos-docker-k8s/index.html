@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="疯子，低调，小呆瓜，docker ，big data，spring，李娇的男朋友">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>“全民搭建私有云" - 周曦的博客 | Aelishus Blog</title>
+
+    <link rel="canonical" href="http://zhouxi.me/2016/02/26/coreos-docker-k8s/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">周曦的博客</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-unix-linux.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-unix-linux.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Docker" title="Docker">Docker</a>
+                        
+                        <a class="tag" href="/tags/#Coreos" title="Coreos">Coreos</a>
+                        
+                        <a class="tag" href="/tags/#Flannel" title="Flannel">Flannel</a>
+                        
+                        <a class="tag" href="/tags/#Kubernetes" title="Kubernetes">Kubernetes</a>
+                        
+                        <a class="tag" href="/tags/#Calico" title="Calico">Calico</a>
+                        
+                        <a class="tag" href="/tags/#Vagrant" title="Vagrant">Vagrant</a>
+                        
+                    </div>
+                    <h1>“全民搭建私有云"</h1>
+                    
+                    
+                    <h2 class="subheading">使用Vagrant快速搭建基于Coreos的kubernetes-Docker私有云环境</h2>
+                    
+                    <span class="meta">Posted by Zhouxi on February 26, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<blockquote>
+  <p>This document is not completed and will be updated anytime.</p>
+</blockquote>
+
+<h2 id="section">一些废话</h2>
+<p>一年之间docker火遍了大江南北，各个互联网巨头纷纷推出了自家的docker玩法。可谓是千奇百怪，花样繁多，让我们这些想跟风的小P民茫然无措，难以上手。打住！你可能觉得我在BB，docker官方不是说docker极大的简化了环境的配置和应用的交付吗？诚然，如果有台电脑装个docker然后运行几个命令跑几个docker容器确实非常简单。然而这个并没什么卵用，我们不会在生产环境的机器上装个docker然后跑几个容器吧，增加了麻烦不说，性能还不如裸机。docker真正带来的价值在于轻量级可以将容器快说部署到任何平台的机器。因此我们要玩，要上生产，要享受docker给我带来这些便利，我们就需要一个容器间能相互访问，并支持管理和调度的docker集群。但是要搭建这样一个集群可不是一件容易的事情，它涉及到网络，调度算法，操作系统，存储…总的来说太多了，要想把这些方面的细节都掌握是件特别困难的事情，各互联网巨头都拥有一个专门搞这个团队，每个人负责一块，一群人在维护。哎，写到这你可能觉得算了吧，一两个人怎么玩的起来？不要灰心，虽然我们一两个人不行，但是我们可以抱大腿，docker社区很活跃，很多成熟开源解决方案，让你能够把docker私有云玩起来。不过不是每个人都能玩起来，里面的坑实在太多，一路走来的兄弟可好！好了，废话不多说了，进入主题。</p>
+
+<h2 id="section-1">准备工作</h2>
+<p>既然是全民，肯定已经屏蔽很多坑，而且全平台都支持（windows，osx，linux/unix），操作简单，但是至少你要对kubernetes，docker有所了解。</p>
+
+<ol>
+  <li><a href="#tools">需要的工具</a>
+    <ol>
+      <li><a href="#vagrant">Vagrant</a></li>
+      <li><a href="#virtualbox">VirtualBox</a></li>
+    </ol>
+  </li>
+  <li><a href="#coreos">下载Coreos</a></li>
+  <li><a href="#install">一键搭建集群</a>
+    <ol>
+      <li><a href="#check">检查环境</a></li>
+      <li><a href="#cloud-config">优雅配置启用服务</a></li>
+      <li><a href="#calico">calico网络方式</a></li>
+      <li><a href="#flannel">flannel网络方式</a></li>
+    </ol>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="tools">Tools</h2>
+
+<blockquote>
+  <p>本来我是想用Windows平台来安装做说明，但是苦于身边没有Windows机器，刚好身边有台<code>Centos7</code>，所以下面的说明都是基于它的，这些工具都是全平台通用的。</p>
+</blockquote>
+
+<ul>
+  <li>
+    <h4 id="vagrant">Vagrant</h4>
+    <p> <a href="https://www.vagrantup.com/">Vagrant</a>是一个构建完整开发环境的工具，使用非常简单，有详细说明。</p>
+  </li>
+  <li>下载安装Centos版本：</li>
+</ul>
+
+<pre><code> #wget https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.rpm
+ #rpm -ivh vagrant_1.8.1_x86_64.rpm
+ 
+</code></pre>
+
+<ul>
+  <li>
+    <h4 id="virtualbox">VirtualBox</h4>
+    <p><a href="https://www.virtualbox.org">VirtualBox</a>是oracle开源的虚拟机，不要钱的，放心玩。</p>
+  </li>
+  <li>下载安装最新版：
+  Windows，Osx，Ubuntu的版本都比较好安装基本是傻瓜式的，下面介绍Centos 7的安装方式</li>
+</ul>
+
+<pre><code> #cd /etc/yum.repos.d/
+ #wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
+ #yum update
+ #rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+ #yum install VirtualBox-5.0
+ #/usr/lib/virtualbox/vboxdrv.sh setup
+ #reboot
+ 
+</code></pre>
+
+<ul>
+  <li>注意：VirtualBox5.0需要使用cpu虚拟化技术，请在bois里面开启</li>
+</ul>
+
+<hr />
+
+<h2 id="coreos">Coreos</h2>
+<p><a href="https://coreos.com/">Coreos</a>是个经过裁剪，非常轻量级，占用资源极少，支持平滑升级回滚的集群操作系统，可以使用fleet轻松管理Coreos集群。</p>
+
+<ul>
+  <li>下载coreos</li>
+</ul>
+
+<pre><code> #git clone https://github.com/Aleishus/easy-docker-cloud.git
+ #cd easy-docker-cloud/coreos-vagrant/
+ #vagrant up
+
+</code></pre>
+
+<ul>
+  <li>完成下载之后查看状态</li>
+</ul>
+
+<pre><code>  #vagrant status
+   Current machine states:
+     core-01                   running (virtualbox)    
+
+</code></pre>
+
+<ul>
+  <li>停止虚拟机</li>
+</ul>
+
+<pre><code>#vagrant destroy  -f  
+</code></pre>
+
+<hr />
+
+<h2 id="install">Install</h2>
+
+<blockquote>
+  <p>万事都具备，下面我们就快要将私有云搭建起来了 ^ ^</p>
+</blockquote>
+
+<ul>
+  <li>
+    <h4 id="check">Check</h4>
+
+    <p><strong>检查系统是否安装nfs服务</strong></p>
+  </li>
+</ul>
+
+<pre><code> #systemctl cat nfs-server
+ # /usr/lib/systemd/system/nfs-server.service
+[Unit]
+Description=NFS server and services
+DefaultDependencies=no
+Requires= network.target proc-fs-nfsd.mount rpcbind.target
+Requires= nfs-mountd.service
+Wants=rpc-statd.service nfs-idmapd.service
+Wants=rpc-statd-notify.service
+
+After= local-fs.target       
+
+...
+
+</code></pre>
+<p>如果没有安装请安装 <code>yum install nfs-utils</code> , <a href="http://www.iamle.com/archives/2011.html">Windows 启用NFS</a></p>
+
+<ul>
+  <li>
+    <h4 id="cloud-config">Cloud-config</h4>
+  </li>
+</ul>
+
+<blockquote>
+  <p> 在启动之前， 我们先来看看coreos是如何优雅来控制系统服务的启动和顺序。
+Coreos 整了一个叫<a href="https://coreos.com/os/docs/latest/cloud-config.html">Cloud-config</a>的东西来自定启动的服务,使得你可以配置一个<strong>cloud-config.yaml</strong>的文件，然后在系统启动的时候通过<code>coreos-cloudinit</code>, 从而定义服务的依赖和启动顺序，其服务的组织模板是规范于<strong>systemd</strong>标准的。我们查看一下 <strong>easy-docker-cloud/calico-kubernetes/cloud-config/master-config.yaml.tmpl</strong></p>
+</blockquote>
+
+<pre><code> - name: kube-scheduler.service
+      command: start
+      content: |
+        [Unit]
+        Description=Kubernetes Scheduler
+        Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+        Requires=kube-apiserver.service
+        After=kube-apiserver.service
+        [Service]
+        ExecStart=/opt/bin/kube-scheduler --master=$private_ipv4:8080 --logtostderr=true
+        Restart=always
+        RestartSec=10
+        [Install]
+        WantedBy=multi-user.target
+
+    - name: docker.service
+      drop-ins:
+        - name: "50-registry.conf"
+          content: |
+            [Unit]
+            Before=calico-node.service
+            [Service]
+            Environment=DOCKER_OPTS='--insecure-registry="192.168.46.21:5000"'   
+</code></pre>
+<p>注意为了方便下载docker镜像，使用了私有仓库<strong>192.168.46.21:5000</strong>，可以改成自己到（需要修改的文件 */cloud-config/master-config.yaml.tmpl, */cloud-config/node-config.yaml.tmpl），或者不用（GFW大家懂得）</p>
+
+<ul>
+  <li>
+    <h4 id="calico">Calico</h4>
+  </li>
+</ul>
+
+<blockquote>
+  <p>私有云集群要求docker容器之间能相互访问，有独立ip且ip对其他容器是可见的。<a href="https://www.projectcalico.org/">Calico</a>通过给主机添加路由表，各主机之间通过BPG相互学习路由规则达到网络互通的目的。</p>
+</blockquote>
+
+<p><img src="http://64.91.234.195/~projcali/wp-content/uploads/2015/03/ip-hops1.png" alt="calico flow" />
+<img src="http://www.projectcalico.org/wp-content/uploads/2015/03/why-bgp-networks.svg" alt="calico big" /></p>
+
+<ul>
+  <li> 一键安装</li>
+</ul>
+
+<pre><code> # cd easy-docker-cloud/calico-kubernetes/
+ # vagrant up
+Bringing machine 'calico-01' up with 'virtualbox' provider...
+Bringing machine 'calico-02' up with 'virtualbox' provider...
+Bringing machine 'calico-03' up with 'virtualbox' provider...
+==&gt; calico-01: Importing base box 'coreos-stable'...
+==&gt; calico-01: Matching MAC address for NAT networking...
+==&gt; calico-01: Checking if box 'coreos-stable' is up to date...
+==&gt; calico-01: Setting the name of the VM: calico-kubernetes_calico-01_1456484431502_68953
+==&gt; calico-01: Fixed port collision for 22 =&gt; 2222. Now on port 2202.
+==&gt; calico-01: Clearing any previously set network interfaces...
+==&gt; calico-01: Preparing network interfaces based on configuration...
+    calico-01: Adapter 1: nat
+    calico-01: Adapter 2: hostonly
+==&gt; calico-01: Forwarding ports...
+    calico-01: 22 (guest) =&gt; 2202 (host) (adapter 1)
+==&gt; calico-01: Running 'pre-boot' VM customizations...
+==&gt; calico-01: Booting VM...
+==&gt; calico-01: Waiting for machine to boot. This may take a few minutes...
+    calico-01: SSH address: 127.0.0.1:2202
+    calico-01: SSH username: core
+    calico-01: SSH auth method: private key
+    calico-01: Warning: Remote connection disconnect. Retrying...
+                                                                                                                                          
+</code></pre>
+
+<ul>
+  <li>安装完成后</li>
+</ul>
+
+<pre><code> //查看节点运行状态
+ # vagrant status
+ Current machine states:
+
+calico-01                 running (virtualbox)
+calico-02                 running (virtualbox)
+calico-03                 running (virtualbox) 
+ 
+ //进入kubernetes master节点
+ # vagrant ssh calico-01
+CoreOS stable (835.13.0)
+Update Strategy: No Reboots
+core@calico-01 ~ $ kubectl get node  //查看k8s状态
+NAME            LABELS                                 STATUS    AGE
+172.18.18.101   kubernetes.io/hostname=172.18.18.101   Ready     1m
+172.18.18.102   kubernetes.io/hostname=172.18.18.102   Ready     47s
+172.18.18.103   kubernetes.io/hostname=172.18.18.103   Ready     2s
+ 
+core@calico-01 ~ $ calicoctl status   //查看calico状态
+calico-node container is running. Status: Up 2 minutes
+Running felix version 1.3.0rc6
+
+IPv4 BGP status
+IP: 172.18.18.101    AS Number: 64511 (inherited)
++---------------+-------------------+-------+----------+-------------+
+|  Peer address |     Peer type     | State |  Since   |     Info    |
++---------------+-------------------+-------+----------+-------------+
+| 172.18.18.102 | node-to-node mesh |   up  | 11:17:18 | Established |
+| 172.18.18.103 | node-to-node mesh |   up  | 11:18:03 | Established |
++---------------+-------------------+-------+----------+-------------+
+
+IPv6 BGP status
+No IPv6 address configured.                                           
+ 
+ //创建一个pod看看
+core@flannel-01 ~ $ kubectl create -f busybox.yaml
+pod "busybox" created
+core@flannel-01 ~ $ kubectl get po -o wide
+NAME      READY     STATUS    RESTARTS   AGE       NODE
+busybox   1/1       Running   0          6s        172.18.18.103
+ 
+ //可以看到kubernetes和calico都正常工作了，恭喜你3节点私有云已经搭建完成
+</code></pre>
+
+<ul>
+  <li>
+    <h4 id="flannel">Flannel</h4>
+  </li>
+</ul>
+
+<blockquote>
+  <p><a href="https://github.com/coreos/flannel">Flannel</a> 通过vxlan ,udp … overlay的方式行解包封包来实现容器间的ip访问，关于flannel和calico系能对比我会在以后说明</p>
+</blockquote>
+
+<p><img src="https://raw.githubusercontent.com/coreos/flannel/master/packet-01.png" alt="flannel" /></p>
+
+<ul>
+  <li>一键安装</li>
+</ul>
+
+<pre><code> #cd easy-docker-cloud/flannel-kubernetes
+ #vagrant up
+ Bringing machine 'flannel-01' up with 'virtualbox' provider...
+Bringing machine 'flannel-02' up with 'virtualbox' provider...
+Bringing machine 'flannel-03' up with 'virtualbox' provider...
+==&gt; flannel-01: Importing base box 'coreos-stable'...
+==&gt; flannel-01: Matching MAC address for NAT networking...
+==&gt; flannel-01: Checking if box 'coreos-stable' is up to date...
+==&gt; flannel-01: Setting the name of the VM: flannel-kubernetes_flannel-01_1456486316604_71560
+==&gt; flannel-01: Clearing any previously set network interfaces...
+==&gt; flannel-01: Preparing network interfaces based on configuration...
+    flannel-01: Adapter 1: nat
+    flannel-01: Adapter 2: hostonly
+==&gt; flannel-01: Forwarding ports...
+    flannel-01: 22 (guest) =&gt; 2222 (host) (adapter 1)
+==&gt; flannel-01: Running 'pre-boot' VM customizations...
+==&gt; flannel-01: Booting VM... 
+</code></pre>
+
+<ul>
+  <li>安装完成后</li>
+</ul>
+
+<pre><code>//查看节点运行状态
+ # vagrant status
+ Current machine states:
+
+flannel-01                running (virtualbox)
+flannel-02                running (virtualbox)
+flannel-03                running (virtualbox)   
+
+//进入kubernetes master节点
+ #vagrant ssh flannel-01
+ CoreOS stable (835.13.0)
+ Update Strategy: No Reboots
+ core@flannel-01 ~ $ 
+ core@flannel-01 ~ $ kubectl get node      //查看k8s状态
+NAME            LABELS                                 STATUS    AGE
+172.18.18.101   kubernetes.io/hostname=172.18.18.101   Ready     4m
+172.18.18.102   kubernetes.io/hostname=172.18.18.102   Ready     3m
+172.18.18.103   kubernetes.io/hostname=172.18.18.103   Ready     3m  
+
+core@flannel-01 ~ $ etcdctl ls /coreos.com/network/subnets     //查看flannel状态
+/coreos.com/network/subnets/10.1.44.0-24
+/coreos.com/network/subnets/10.1.21.0-24
+/coreos.com/network/subnets/10.1.23.0-24 
+
+//创建一个pod看看
+core@flannel-01 ~ $ kubectl create -f busybox.yaml
+pod "busybox" created
+core@flannel-01 ~ $ kubectl get po -o wide
+NAME      READY     STATUS    RESTARTS   AGE       NODE
+busybox   1/1       Running   0          6s        172.18.18.103 
+
+//可以看到kubernetes和flannel都正常工作了，恭喜你3节点私有云已经搭建完成
+                             
+
+</code></pre>
+
+
+
+                <hr>
+
+                
+                <!-- 多说 Share start -->
+                </style>
+                <div class="ds-share"
+                    style="text-align: right"
+                    data-thread-key="/2016/02/26/coreos-docker-k8s"
+                    data-title="“全民搭建私有云""
+                    data-url="http://zhouxi.me/2016/02/26/coreos-docker-k8s/"
+                    data-images="http://zhouxi.me/img/post-bg-unix-linux.jpg"
+                    data-content="
+  This document is not completed and will be updated anytime.
+
+
+一些废话
+一年之间doc... | 周曦的博客 | Aelishus Blog " >
+                    <div class="ds-share-inline">
+                      <ul  class="ds-share-icons-16">
+                        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                        <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                        <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                        <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                      </ul>
+                      <div class="ds-share-icons-more">
+                      </div>
+                    </div>
+                <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+
+                <ul class="pager">
+                    
+                    
+                </ul>
+
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="/2016/02/26/coreos-docker-k8s"
+                        data-title="“全民搭建私有云""
+                        data-url="http://zhouxi.me/2016/02/26/coreos-docker-k8s/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://zhouxi.me">Zhouxi Blog</a></li>
+                    
+                        <li><a href="http://thanhong.me">Thanhong Blog</a></li>
+                    
+                        <li><a href="http://bohr.me">Bohr.Qiu Blog</a></li>
+                    
+                        <li><a href="#">Example Friends</a></li>
+                    
+                        <li><a href="#">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'zhouxi';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/aleishus">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 周曦的博客 2016
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+        hljs.initHighlightingOnLoad();
+    })
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'zhouxi.me';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
