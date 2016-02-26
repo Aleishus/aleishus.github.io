@@ -5,8 +5,8 @@
     <description></description>
     <link>http://zhouxi.me/</link>
     <atom:link href="http://zhouxi.me/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 26 Feb 2016 19:57:44 +0800</pubDate>
-    <lastBuildDate>Fri, 26 Feb 2016 19:57:44 +0800</lastBuildDate>
+    <pubDate>Fri, 26 Feb 2016 19:59:19 +0800</pubDate>
+    <lastBuildDate>Fri, 26 Feb 2016 19:59:19 +0800</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
     
       <item>
@@ -16,10 +16,14 @@
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;一些废话&lt;/h2&gt;
-&lt;p&gt;一年之间docker火遍了大江南北，各个互联网巨头纷纷推出了自家的docker玩法。可谓是千奇百怪，花样繁多，让我们这些想跟风的小P民茫然无措，难以上手。打住！你可能觉得我在BB，docker官方不是说docker极大的简化了环境的配置和应用的交付吗？诚然，如果有台电脑装个docker然后运行几个命令跑几个docker容器确实非常简单。然而这个并没什么卵用，我们不会在生产环境的机器上装个docker然后跑几个容器吧，增加了麻烦不说，性能还不如裸机。docker真正带来的价值在于轻量级可以将容器快说部署到任何平台的机器。因此我们要玩，要上生产，要享受docker给我带来这些便利，我们就需要一个容器间能相互访问，并支持管理和调度的docker集群。但是要搭建这样一个集群可不是一件容易的事情，它涉及到网络，调度算法，操作系统，存储…总的来说太多了，要想把这些方面的细节都掌握是件特别困难的事情，各互联网巨头都拥有一个专门搞这个团队，每个人负责一块，一群人在维护。哎，写到这你可能觉得算了吧，一两个人怎么玩的起来？不要灰心，虽然我们一两个人不行，但是我们可以抱大腿，docker社区很活跃，很多成熟开源解决方案，让你能够把docker私有云玩起来。不过不是每个人都能玩起来，里面的坑实在太多，一路走来的兄弟可好！好了，废话不多说了，进入主题。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;一年之间docker火遍了大江南北，各个互联网巨头纷纷推出了自家的docker玩法。可谓是千奇百怪，花样繁多，让我们这些想跟风的小P民茫然无措，难以上手。打住！你可能觉得我在BB，docker官方不是说docker极大的简化了环境的配置和应用的交付吗？诚然，如果有台电脑装个docker然后运行几个命令跑几个docker容器确实非常简单。然而这个并没什么卵用，我们不会在生产环境的机器上装个docker然后跑几个容器吧，增加了麻烦不说，性能还不如裸机。docker真正带来的价值在于轻量级可以将容器快说部署到任何平台的机器。因此我们要玩，要上生产，要享受docker给我带来这些便利，我们就需要一个容器间能相互访问，并支持管理和调度的docker集群。但是要搭建这样一个集群可不是一件容易的事情，它涉及到网络，调度算法，操作系统，存储…总的来说太多了，要想把这些方面的细节都掌握是件特别困难的事情，各互联网巨头都拥有一个专门搞这个团队，每个人负责一块，一群人在维护。哎，写到这你可能觉得算了吧，一两个人怎么玩的起来？不要灰心，虽然我们一两个人不行，但是我们可以抱大腿，docker社区很活跃，很多成熟开源解决方案，让你能够把docker私有云玩起来。不过不是每个人都能玩起来，里面的坑实在太多，一路走来的兄弟可好！好了，废话不多说了，进入主题。&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;准备工作&lt;/h2&gt;
-&lt;p&gt;既然是全民，肯定已经屏蔽很多坑，而且全平台都支持（windows，osx，linux/unix），操作简单，但是至少你要对kubernetes，docker有所了解。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;既然是全民，肯定已经屏蔽很多坑，而且全平台都支持（windows，osx，linux/unix），操作简单，但是至少你要对kubernetes，docker有所了解。&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#tools&quot;&gt;需要的工具&lt;/a&gt;
