@@ -5,8 +5,8 @@
     <description></description>
     <link>http://zhouxi.me/</link>
     <atom:link href="http://zhouxi.me/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 26 Feb 2016 20:04:20 +0800</pubDate>
-    <lastBuildDate>Fri, 26 Feb 2016 20:04:20 +0800</lastBuildDate>
+    <pubDate>Fri, 26 Feb 2016 20:06:44 +0800</pubDate>
+    <lastBuildDate>Fri, 26 Feb 2016 20:06:44 +0800</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
     
       <item>
@@ -187,7 +187,7 @@ Coreos 整了一个叫&lt;a href=&quot;https://coreos.com/os/docs/latest/cloud-c
             [Service]
             Environment=DOCKER_OPTS=&#39;--insecure-registry=&quot;192.168.46.21:5000&quot;&#39;   
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;注意为了方便下载docker镜像，使用了私有仓库&lt;strong&gt;192.168.46.21:5000&lt;/strong&gt;，你需要改成自己的（需要修改的文件对应项 &lt;code&gt;*/cloud-config/master-config.yaml.tmpl&lt;/code&gt;, &lt;code&gt;*/cloud-config/node-config.yaml.tmpl&lt;/code&gt;），或者不用（GFW大家懂得）&lt;/p&gt;
+&lt;p&gt;注意为了方便下载docker镜像，使用了私有仓库&lt;strong&gt;192.168.46.21:5000&lt;/strong&gt;，你需要改成自己的（需要修改以下文件中的对应项 &lt;code&gt;*/cloud-config/master-config.yaml.tmpl&lt;/code&gt;, &lt;code&gt;*/cloud-config/node-config.yaml.tmpl&lt;/code&gt;），或者不用（GFW大家懂得）&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
