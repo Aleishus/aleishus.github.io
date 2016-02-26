@@ -352,7 +352,7 @@ Coreos 整了一个叫<a href="https://coreos.com/os/docs/latest/cloud-config.ht
             [Service]
             Environment=DOCKER_OPTS='--insecure-registry="192.168.46.21:5000"'   
 </code></pre>
-<p>注意为了方便下载docker镜像，使用了私有仓库<strong>192.168.46.21:5000</strong>，可以改成自己到（需要修改的文件 */cloud-config/master-config.yaml.tmpl, */cloud-config/node-config.yaml.tmpl），或者不用（GFW大家懂得）</p>
+<p>注意为了方便下载docker镜像，使用了私有仓库<strong>192.168.46.21:5000</strong>，你需要改成自己的（需要修改的文件对应项 <code>*/cloud-config/master-config.yaml.tmpl</code>, <code>*/cloud-config/node-config.yaml.tmpl</code>），或者不用（GFW大家懂得）</p>
 
 <ul>
   <li>
