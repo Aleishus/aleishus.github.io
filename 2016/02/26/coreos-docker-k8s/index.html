@@ -124,7 +124,7 @@
 
 
     <!-- Image to hack wechat -->
-<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="./img/icon_wechat.png" width="0" height="0"> -->
 <!-- <img src="/img/post-bg-unix-linux.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
@@ -225,7 +225,7 @@
   <li>下载安装Centos版本：</li>
 </ul>
 
-<pre><code> #wget https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.rpm
+<pre><code class="language-bash"> #wget https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.rpm
  #rpm -ivh vagrant_1.8.1_x86_64.rpm
  
 </code></pre>
@@ -239,7 +239,7 @@
   Windows，Osx，Ubuntu的版本都比较好安装基本是傻瓜式的，下面介绍Centos 7的安装方式</li>
 </ul>
 
-<pre><code> #cd /etc/yum.repos.d/
+<pre><code class="language-bash"> #cd /etc/yum.repos.d/
  #wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
  #yum update
  #rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
@@ -262,7 +262,7 @@
   <li>下载coreos</li>
 </ul>
 
-<pre><code> #git clone https://github.com/Aleishus/easy-docker-cloud.git
+<pre><code class="language-bash"> #git clone https://github.com/Aleishus/easy-docker-cloud.git
  #cd easy-docker-cloud/coreos-vagrant/
  #vagrant up
 
@@ -301,7 +301,7 @@
   </li>
 </ul>
 
-<pre><code> #systemctl cat nfs-server
+<pre><code class="language-yaml"> #systemctl cat nfs-server
  # /usr/lib/systemd/system/nfs-server.service
 [Unit]
 Description=NFS server and services
@@ -329,7 +329,7 @@ After= local-fs.target
 Coreos 整了一个叫<a href="https://coreos.com/os/docs/latest/cloud-config.html">Cloud-config</a>的东西来自定启动的服务,使得你可以配置一个<strong>cloud-config.yaml</strong>的文件，然后在系统启动的时候通过<code>coreos-cloudinit</code>, 从而定义服务的依赖和启动顺序，其服务的组织模板是规范于<strong>systemd</strong>标准的。我们查看一下 <strong>easy-docker-cloud/calico-kubernetes/cloud-config/master-config.yaml.tmpl</strong></p>
 </blockquote>
 
-<pre><code> - name: kube-scheduler.service
+<pre><code class="language-yaml"> - name: kube-scheduler.service
       command: start
       content: |
         [Unit]
@@ -559,6 +559,10 @@ busybox   1/1       Running   0          6s        172.18.18.103
                 <ul class="pager">
                     
                     
+                    <li class="next">
+                        <a href="/2017/01/16/shadowsock/" data-toggle="tooltip" data-placement="top" title="“科学上网只要10元/月"">Next Post &rarr;</a>
+                    </li>
+                    
                 </ul>
 
 
@@ -588,8 +592,10 @@ busybox   1/1       Running   0          6s        172.18.18.103
                 
                 <section>
                     <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <h5><a href="./tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
         				
                             
         				
@@ -727,7 +733,7 @@ busybox   1/1       Running   0          6s        172.18.18.103
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 周曦的博客 2016
+                    Copyright &copy; 周曦的博客 2017
                     <br>
                     Theme by <a href="http://huangxuan.me">Hux</a> |
                     <iframe
@@ -829,7 +835,7 @@ busybox   1/1       Running   0          6s        172.18.18.103
 
 
 <!-- Image to hack wechat -->
-<img src="/img/icon_wechat.png" width="0" height="0" />
+<img src="./img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>

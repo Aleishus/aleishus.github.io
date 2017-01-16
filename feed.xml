@@ -5,9 +5,94 @@
     <description></description>
     <link>http://zhouxi.me/</link>
     <atom:link href="http://zhouxi.me/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 26 Feb 2016 23:30:06 +0800</pubDate>
-    <lastBuildDate>Fri, 26 Feb 2016 23:30:06 +0800</lastBuildDate>
+    <pubDate>Mon, 16 Jan 2017 11:48:51 +0800</pubDate>
+    <lastBuildDate>Mon, 16 Jan 2017 11:48:51 +0800</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>“科学上网只要10元/月&quot;</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;This document is not completed and will be updated anytime.
+转载请注明，谢谢&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;gfwgoogleyoutubefacebookgithubgfwnosock5shadowsock10qq67941565&quot;&gt;##大家都知道我们我天朝有GFW（国家防火墙），不能上google，youtube，facebook，男性交友社区github也经常被墙，但是我们需要和这个世界接轨，我们需要了解外面的世界，我们要和GFW说NO。因此我为大家推荐一个性价比超高的SOCK5代理科学上网工具shadowsock。满足大多数情况下科学上网需要的同时只需要白菜的价格，仅需&lt;code&gt;每月10元&lt;/code&gt;。&lt;code&gt;QQ技术群：67941565&lt;/code&gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;对于广大的程序员同志来说，翻墙是必备技能，不翻墙不会用google，你解决问题的效率会十分低下，经验成长的速度会很慢（不要告诉我你用baidu来解决问题:）&lt;/li&gt;
+  &lt;li&gt;很对同学也许在使用xx-net，goAgent等工具，但是性能不稳定、需要添加证书、下载文件经常会断流、访问google经常要要求输入验证码、有些网站会出现反复重定向（slideshare）、使用的人数一多经常出现error等问题（我曾经也是重度的goAgent用户，但是这些问题很影响我的效率，我决定放弃）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;shadowsock&quot;&gt;下面给大家介绍今天的工具shadowsock(全平台支持)&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;windows x64 版本下载 &lt;a href=&quot;/file/Shadowsocks-3.4.3.zip&quot;&gt;Shadowsocks-3.4.3.zip&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;mac osx10.8 以上版本下载 &lt;a href=&quot;/file/ShadowsocksX-2.6.5.dmg&quot;&gt;ShadowsocksX-2.6.5.dmg&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;ubuntu &amp;gt;=14.04&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo add-apt-repository ppa:hzwhuang/ss-qt5
+sudo apt-get update
+sudo apt-get install shadowsocks-qt5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+  &lt;li&gt;IOS &lt;a href=&quot;https://itunes.apple.com/app/apple-store/id1070901416?mt=8&quot;&gt;Apple Store&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Android &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.github.shadowsocks&quot;&gt;Google Pay&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;智能路由器OpenWRT&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;#shadowsocks-libev
+opkg install shadowsocks-libev
+#shadowsocks-libev-polarssl
+opkg install shadowsocks-libev-polarssl
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;### 安装使用
+* mac
+找到&lt;code&gt;服务器&lt;/code&gt;设定，填入以下参数
+&lt;img src=&quot;/img/1.png&quot; alt=&quot;&quot; /&gt;
+开启shadowsock
+&lt;img src=&quot;/img/2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;windows
+&lt;img src=&quot;/img/3.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/img/4.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;linux略&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;&lt;code&gt; 就这么简单，打开你的浏览器，尽情享受外面的世界吧 :)&lt;/code&gt;&lt;/h2&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;### 下面提供&lt;em&gt;试用账号&lt;/em&gt;(日本vps 延迟低)
+ps: 用的人太多速度会变慢哦
+大家觉得用起爽，需要购买的联系我&lt;code&gt;QQ:820421292,微信:Aleishus&lt;/code&gt;,只要10元/月哦,你还在等什么没有比这个更便宜VPN代理了：）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;ip            端口           密码           加密
+45.32.54.81   20000      123456!@#$ZX   aes-128-cfb
+45.32.54.81   20001      123456!@#$ZX   aes-128-cfb
+45.32.54.81   20002      123456!@#$ZX   aes-128-cfb
+45.32.54.81   20003      123456!@#$ZX   aes-128-cfb
+45.32.54.81   20004      123456!@#$ZX   aes-128-cfb
+45.32.54.81   20005      123456!@#$ZX   aes-128-cfb
+45.32.54.81   20006      123456!@#$ZX   aes-128-cfb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;p&gt;## 效果截图
+低延迟
+&lt;img src=&quot;/img/5.png&quot; alt=&quot;&quot; /&gt;
+秒开google
+&lt;img src=&quot;/img/7.png&quot; alt=&quot;&quot; /&gt;
+可看youtube720p画质
+&lt;img src=&quot;/img/8.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 16 Jan 2017 00:00:00 +0800</pubDate>
+        <link>http://zhouxi.me/2017/01/16/shadowsock/</link>
+        <guid isPermaLink="true">http://zhouxi.me/2017/01/16/shadowsock/</guid>
+        
+        <category>Shadowsock</category>
+        
+        
+      </item>
     
       <item>
         <title>“全民搭建私有云&quot;</title>
@@ -60,7 +145,7 @@
   &lt;li&gt;下载安装Centos版本：&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;pre&gt;&lt;code&gt; #wget https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.rpm
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt; #wget https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.rpm
  #rpm -ivh vagrant_1.8.1_x86_64.rpm
  
 &lt;/code&gt;&lt;/pre&gt;
@@ -74,7 +159,7 @@
   Windows，Osx，Ubuntu的版本都比较好安装基本是傻瓜式的，下面介绍Centos 7的安装方式&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;pre&gt;&lt;code&gt; #cd /etc/yum.repos.d/
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt; #cd /etc/yum.repos.d/
  #wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
  #yum update
  #rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
@@ -97,7 +182,7 @@
   &lt;li&gt;下载coreos&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;pre&gt;&lt;code&gt; #git clone https://github.com/Aleishus/easy-docker-cloud.git
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt; #git clone https://github.com/Aleishus/easy-docker-cloud.git
  #cd easy-docker-cloud/coreos-vagrant/
  #vagrant up
 
@@ -136,7 +221,7 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;pre&gt;&lt;code&gt; #systemctl cat nfs-server
+&lt;pre&gt;&lt;code class=&quot;language-yaml&quot;&gt; #systemctl cat nfs-server
  # /usr/lib/systemd/system/nfs-server.service
 [Unit]
 Description=NFS server and services
@@ -164,7 +249,7 @@ After= local-fs.target
 Coreos 整了一个叫&lt;a href=&quot;https://coreos.com/os/docs/latest/cloud-config.html&quot;&gt;Cloud-config&lt;/a&gt;的东西来自定启动的服务,使得你可以配置一个&lt;strong&gt;cloud-config.yaml&lt;/strong&gt;的文件，然后在系统启动的时候通过&lt;code&gt;coreos-cloudinit&lt;/code&gt;, 从而定义服务的依赖和启动顺序，其服务的组织模板是规范于&lt;strong&gt;systemd&lt;/strong&gt;标准的。我们查看一下 &lt;strong&gt;easy-docker-cloud/calico-kubernetes/cloud-config/master-config.yaml.tmpl&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;pre&gt;&lt;code&gt; - name: kube-scheduler.service
+&lt;pre&gt;&lt;code class=&quot;language-yaml&quot;&gt; - name: kube-scheduler.service
       command: start
       content: |
         [Unit]

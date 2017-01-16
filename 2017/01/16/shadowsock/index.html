@@ -10,9 +10,9 @@
     <meta name="keyword"  content="疯子，低调，小呆瓜，docker ，big data，spring，李娇的男朋友">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>周曦的博客 | Aleishus Blog</title>
+    <title>“科学上网只要10元/月" - 周曦的博客 | Aleishus Blog</title>
 
-    <link rel="canonical" href="http://zhouxi.me/">
+    <link rel="canonical" href="http://zhouxi.me/2017/01/16/shadowsock/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -123,165 +123,214 @@
 </script>
 
 
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <!-- Image to hack wechat -->
+<!-- <img src="./img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-unix-linux.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-unix-linux.jpg')
+    }
+</style>
+<header class="intro-header" >
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>周曦的博客</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">眼界决定思想的高度</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Shadowsock" title="Shadowsock">Shadowsock</a>
+                        
+                    </div>
+                    <h1>“科学上网只要10元/月"</h1>
+                    
+                    
+                    <h2 class="subheading">使用shadowsock提供高效的科学上网体验</h2>
+                    
+                    <span class="meta">Posted by Zhouxi on January 16, 2017</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
-        
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-<!-- USE SIDEBAR -->
     <!-- Post Container -->
-    		<div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-    			
-<div class="post-preview">
-    <a href="/2017/01/16/shadowsock/">
-        <h2 class="post-title">
-            “科学上网只要10元/月"
-        </h2>
-        
-        <h3 class="post-subtitle">
-            使用shadowsock提供高效的科学上网体验
-        </h3>
-        
-        <div class="post-content-preview">
-            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<blockquote>
+  <p>This document is not completed and will be updated anytime.
+转载请注明，谢谢</p>
+</blockquote>
+
+<h2 id="gfwgoogleyoutubefacebookgithubgfwnosock5shadowsock10qq67941565">##大家都知道我们我天朝有GFW（国家防火墙），不能上google，youtube，facebook，男性交友社区github也经常被墙，但是我们需要和这个世界接轨，我们需要了解外面的世界，我们要和GFW说NO。因此我为大家推荐一个性价比超高的SOCK5代理科学上网工具shadowsock。满足大多数情况下科学上网需要的同时只需要白菜的价格，仅需<code>每月10元</code>。<code>QQ技术群：67941565</code></h2>
+
+<ul>
+  <li>对于广大的程序员同志来说，翻墙是必备技能，不翻墙不会用google，你解决问题的效率会十分低下，经验成长的速度会很慢（不要告诉我你用baidu来解决问题:）</li>
+  <li>很对同学也许在使用xx-net，goAgent等工具，但是性能不稳定、需要添加证书、下载文件经常会断流、访问google经常要要求输入验证码、有些网站会出现反复重定向（slideshare）、使用的人数一多经常出现error等问题（我曾经也是重度的goAgent用户，但是这些问题很影响我的效率，我决定放弃）</li>
+</ul>
+
+<h2 id="shadowsock">下面给大家介绍今天的工具shadowsock(全平台支持)</h2>
+<ul>
+  <li>windows x64 版本下载 <a href="/file/Shadowsocks-3.4.3.zip">Shadowsocks-3.4.3.zip</a></li>
+  <li>mac osx10.8 以上版本下载 <a href="/file/ShadowsocksX-2.6.5.dmg">ShadowsocksX-2.6.5.dmg</a></li>
+  <li>ubuntu &gt;=14.04</li>
+</ul>
+
+<pre><code class="language-bash">sudo add-apt-repository ppa:hzwhuang/ss-qt5
+sudo apt-get update
+sudo apt-get install shadowsocks-qt5
+</code></pre>
+<ul>
+  <li>IOS <a href="https://itunes.apple.com/app/apple-store/id1070901416?mt=8">Apple Store</a></li>
+  <li>Android <a href="https://play.google.com/store/apps/details?id=com.github.shadowsocks">Google Pay</a></li>
+  <li>智能路由器OpenWRT</li>
+</ul>
+
+<pre><code class="language-bash">#shadowsocks-libev
+opkg install shadowsocks-libev
+#shadowsocks-libev-polarssl
+opkg install shadowsocks-libev-polarssl
+</code></pre>
+<p>### 安装使用
+* mac
+找到<code>服务器</code>设定，填入以下参数
+<img src="/img/1.png" alt="" />
+开启shadowsock
+<img src="/img/2.png" alt="" /></p>
+
+<ul>
+  <li>windows
+<img src="/img/3.png" alt="" />
+<img src="/img/4.png" alt="" /></li>
+  <li>linux略</li>
+</ul>
+
+<h2 id="section"><code> 就这么简单，打开你的浏览器，尽情享受外面的世界吧 :)</code></h2>
+
+<hr />
+<p>### 下面提供<em>试用账号</em>(日本vps 延迟低)
+ps: 用的人太多速度会变慢哦
+大家觉得用起爽，需要购买的联系我<code>QQ:820421292,微信:Aleishus</code>,只要10元/月哦,你还在等什么没有比这个更便宜VPN代理了：）</p>
+
+<pre><code class="language-bash">ip            端口           密码           加密
+45.32.54.81   20000      123456!@#$ZX   aes-128-cfb
+45.32.54.81   20001      123456!@#$ZX   aes-128-cfb
+45.32.54.81   20002      123456!@#$ZX   aes-128-cfb
+45.32.54.81   20003      123456!@#$ZX   aes-128-cfb
+45.32.54.81   20004      123456!@#$ZX   aes-128-cfb
+45.32.54.81   20005      123456!@#$ZX   aes-128-cfb
+45.32.54.81   20006      123456!@#$ZX   aes-128-cfb
+</code></pre>
+<hr />
+<p>## 效果截图
+低延迟
+<img src="/img/5.png" alt="" />
+秒开google
+<img src="/img/7.png" alt="" />
+可看youtube720p画质
+<img src="/img/8.png" alt="" /></p>
+
+
+
+                <hr>
+
+                
+                <!-- 多说 Share start -->
+                </style>
+                <div class="ds-share"
+                    style="text-align: right"
+                    data-thread-key="/2017/01/16/shadowsock"
+                    data-title="“科学上网只要10元/月""
+                    data-url="http://zhouxi.me/2017/01/16/shadowsock/"
+                    data-images="http://zhouxi.me/img/post-bg-unix-linux.jpg"
+                    data-content="
   This document is not completed and will be updated anytime.
 转载请注明，谢谢
 
 
-##大家都知道我们我天朝有GFW（国家防火墙），不能上google，youtube，facebook，男性交友社区github也经常被墙，但是我们需要和这个世界接轨，我们需要了解外面的世界，我们要和GFW说NO。因此我为大家推荐一个性价比超高的S...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zhouxi on January 16, 2017
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2016/02/26/coreos-docker-k8s/">
-        <h2 class="post-title">
-            “全民搭建私有云"
-        </h2>
-        
-        <h3 class="post-subtitle">
-            使用Vagrant快速搭建基于Coreos的Kubernetes-Docker私有云环境
-        </h3>
-        
-        <div class="post-content-preview">
-            
-  This document is not completed and will be updated anytime.
-转载请注明，谢谢
+##大... | 周曦的博客 | Aleishus Blog " >
+                    <div class="ds-share-inline">
+                      <ul  class="ds-share-icons-16">
+                        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                        <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                        <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                        <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                      </ul>
+                      <div class="ds-share-icons-more">
+                      </div>
+                    </div>
+                <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
 
 
-一些废话
-
-  一年之间docker火遍了大江南北，各个互联网巨头纷纷推出了自家的docker玩法。可谓是千奇百怪，花样繁多，让我们这些想跟风的小P民茫然无措，难以上手。打住！你可能觉得我在BB，docker官方不是说docker极大的简化了环境...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Zhouxi on February 26, 2016
-    </p>
-</div>
-<hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/02/26/coreos-docker-k8s/" data-toggle="tooltip" data-placement="top" title="“全民搭建私有云"">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
 
 
-<!-- Pager -->
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="/2017/01/16/shadowsock"
+                        data-title="“科学上网只要10元/月""
+                        data-url="http://zhouxi.me/2017/01/16/shadowsock/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
 
+                
 
-    		</div>
+            </div>
+
     <!-- Sidebar Container -->
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
                 <section>
                     <hr class="hidden-sm hidden-xs">
-                    <h5><a href="">FEATURED TAGS</a></h5>
+                    <h5><a href="./tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-                        
+        				
                             
-                        
+        				
                             
-                        
+        				
                             
-                        
+        				
                             
-                        
+        				
                             
-                        
+        				
                             
-                        
+        				
                             
-                        
-                    </div>
+        				
+        			</div>
                 </section>
                 
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="">ABOUT ME</a></h5>
-                    <div class="short-about">
-                        
-                            <img src="/img/avatar-zx.png" />
-                        
-                        
-                            <p>世界那么大，别要活得那么小</p>
-                        
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            <li>
-                                <a href="/feed.xml">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                            
-                            
-                            
-                            
-                            
-                            <li>
-                                <a target="_blank" href="https://github.com/aleishus">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                        </ul>
-                    </div>
-                </section>
                 <!-- Friends Blog -->
                 
                 <hr>
@@ -300,10 +349,70 @@
                     
                 </ul>
                 
-    		</div>
-        
-	</div>
-</div>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'zhouxi';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->
