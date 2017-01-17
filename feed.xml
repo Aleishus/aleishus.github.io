@@ -5,8 +5,8 @@
     <description></description>
     <link>http://zhouxi.me/</link>
     <atom:link href="http://zhouxi.me/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 17 Jan 2017 10:57:05 +0800</pubDate>
-    <lastBuildDate>Tue, 17 Jan 2017 10:57:05 +0800</lastBuildDate>
+    <pubDate>Tue, 17 Jan 2017 11:03:17 +0800</pubDate>
+    <lastBuildDate>Tue, 17 Jan 2017 11:03:17 +0800</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
     
       <item>
@@ -65,19 +65,6 @@ opkg install shadowsocks-libev-polarssl
 
 &lt;p&gt;&lt;code&gt; 就这么简单，打开你的浏览器，尽情享受外面的世界吧 :)&lt;/code&gt;&lt;/p&gt;
 
-&lt;hr /&gt;
-&lt;p&gt;### 下面提供&lt;em&gt;试用账号&lt;/em&gt;(日本vps 延迟低)
-ps: 用的人太多速度会变慢哦&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;ip            端口           密码           加密
-45.32.54.81   20000      123456!@#$ZX   aes-128-cfb
-45.32.54.81   20001      123456!@#$ZX   aes-128-cfb
-45.32.54.81   20002      123456!@#$ZX   aes-128-cfb
-45.32.54.81   20003      123456!@#$ZX   aes-128-cfb
-45.32.54.81   20004      123456!@#$ZX   aes-128-cfb
-45.32.54.81   20005      123456!@#$ZX   aes-128-cfb
-45.32.54.81   20006      123456!@#$ZX   aes-128-cfb
-&lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;效果截图&lt;/h2&gt;
